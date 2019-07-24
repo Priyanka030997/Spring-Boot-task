@@ -41,4 +41,8 @@ public class TrackServiceImpl implements TrackService {
       {
         trackRepository.deleteById(id);
        }
+    @Override
+    public List<Track> trackByName(String name) {
+        return trackRepository.trackByName(name);
+    }
 }

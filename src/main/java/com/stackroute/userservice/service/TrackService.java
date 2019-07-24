@@ -15,4 +15,6 @@ public interface TrackService {
 
     public void deleteTrackById(int id);
 
+    public List<Track> trackByName(String name);
+
 }

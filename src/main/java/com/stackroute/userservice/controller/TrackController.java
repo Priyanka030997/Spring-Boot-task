@@ -71,4 +71,20 @@ public class TrackController {
         }
         return responseEntity;
     }
+
+    @GetMapping(value="/trackbyname/{name}")
+    public ResponseEntity<?> trackByName(@PathVariable("name") String name)
+    {
+        ResponseEntity responseEntity;
+        try
+        {
+            trackService.trackByName(name);
+            responseEntity=new ResponseEntity<String>("sucessfully trackByName", HttpStatus.CREATED);
+        }
+        catch(Exception ex)
+        {
+            responseEntity=new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
+        }
+        return responseEntity;
+    }
 }
