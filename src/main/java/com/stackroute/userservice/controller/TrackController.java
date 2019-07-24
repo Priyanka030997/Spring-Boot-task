@@ -1,6 +1,8 @@
 package com.stackroute.userservice.controller;
 
 import com.stackroute.userservice.domain.Track;
+import com.stackroute.userservice.exceptions.TrackAlreadyExistsException;
+import com.stackroute.userservice.exceptions.TrackNotFoundException;
 import com.stackroute.userservice.service.TrackService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,7 +45,7 @@ public class TrackController {
             trackService.saveTrack(track);
             responseEntity=new ResponseEntity<String>("sucessfully created", HttpStatus.CREATED);
         }
-        catch (Exception ex)
+        catch (TrackAlreadyExistsException ex)
         {
             responseEntity=new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
         }
@@ -66,7 +68,7 @@ public class TrackController {
             trackService.updateTrack(track);
             responseEntity=new ResponseEntity<String>("sucessfully updated", HttpStatus.CREATED);
         }
-        catch (Exception ex)
+        catch (TrackNotFoundException ex)
         {
             responseEntity=new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
         }
