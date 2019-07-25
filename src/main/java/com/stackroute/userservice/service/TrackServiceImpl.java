@@ -16,16 +16,17 @@ public class TrackServiceImpl implements TrackService {
     @Autowired
     public TrackServiceImpl(TrackRepository trackRepository)
     {
+
         this.trackRepository = trackRepository;
     }
     @Override
     public void saveTrack(Track track) throws TrackAlreadyExistsException {
         if(trackRepository.existsById(track.getId())) {
-            throw new TrackAlreadyExistsException("track already exist");
+            throw new TrackAlreadyExistsException();
         }
-            Track savedtrack=trackRepository.save(track);
+        Track savedtrack=trackRepository.save(track);
         if(savedtrack==null) {
-            throw new TrackAlreadyExistsException("track already exist");
+            throw new TrackAlreadyExistsException();
         }
 
     }
@@ -50,7 +51,7 @@ public class TrackServiceImpl implements TrackService {
         }
         else
         {
-        throw new TrackNotFoundException("Track not found");
+        throw new TrackNotFoundException();
     }
 
         //return trackRepository.save(track);

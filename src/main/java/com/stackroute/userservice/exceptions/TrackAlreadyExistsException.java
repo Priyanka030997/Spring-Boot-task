@@ -2,6 +2,7 @@ package com.stackroute.userservice.exceptions;
 
 public class TrackAlreadyExistsException extends Exception{
 
+/*
 private String message;
     public TrackAlreadyExistsException() {
     }
@@ -10,4 +11,5 @@ private String message;
         super(message);
         this.message=message;
     }
+*/
 }

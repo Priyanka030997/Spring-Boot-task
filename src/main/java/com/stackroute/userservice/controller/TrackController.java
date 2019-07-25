@@ -21,6 +21,9 @@ import java.util.List;
 public class TrackController {
     @Autowired
     TrackService trackService;
+    @Autowired
+    ErrorController errorController;
+
 
     public TrackController(TrackService trackService)
     {
@@ -47,7 +50,7 @@ public class TrackController {
         }
         catch (TrackAlreadyExistsException ex)
         {
-            responseEntity=new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
+            responseEntity=errorController.exception1();
         }
         return responseEntity;
     }
@@ -70,7 +73,7 @@ public class TrackController {
         }
         catch (TrackNotFoundException ex)
         {
-            responseEntity=new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
+            responseEntity=errorController.exception2();
         }
         return responseEntity;
     }
