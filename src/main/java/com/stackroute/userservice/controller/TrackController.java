@@ -19,6 +19,7 @@ public class TrackController {
     {
         this.trackService = trackService;
     }
+    //handler method for save all the tracks
     @PostMapping(value="/save")
     public ResponseEntity<?> saveTrack(@RequestBody Track track)
     {
@@ -34,13 +35,13 @@ public class TrackController {
         }
         return responseEntity;
     }
-
+//handler method for get all the tracks
     @GetMapping(value="/track")
     public ResponseEntity<?> getAllTracks()
     {
       return new ResponseEntity<List<Track>>(trackService.getAllTracks(),HttpStatus.OK);
     }
-
+//handler method for update the track
     @PostMapping(value="/update")
     public ResponseEntity<?> updateTrack(@RequestBody Track track)
     {
@@ -56,6 +57,7 @@ public class TrackController {
         }
         return responseEntity;
     }
+    //handler method for delete the track by given Id
     @DeleteMapping(value="/delete/{id}")
     public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id)
     {

@@ -5,6 +5,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Track {
+    //POJO class
     @Id
     private int id;
     private String name;
