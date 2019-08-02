@@ -76,6 +76,35 @@ public class TrackServiceTest {
         List<Track> tracklist = trackService.getAllTracks();
         Assert.assertEquals(list,tracklist);
     }
+@Test
+public void testUpdateTrack() throws TrackNotFoundException{
+
+
+    when(trackRepository.existsById(track.getId())).thenReturn(true);
+    track.setName("Srija");
+    Track track1=trackService.updateTrack(track);
+    when(trackRepository.save((Track)any())).thenReturn(track1);
+    Assert.assertEquals("Srija",track1.getName());
+}
+
+@Test(expected = TrackNotFoundException.class)
+public void testUpdateTrackFailure() throws TrackNotFoundException{
+
+    when(trackRepository.findById(track.getId())).thenReturn(Optional.empty());
+    track.setName("exception case");
+    Track track1=trackService.updateTrack(track);
+}
+
+
+@Test
+public void deleteTrackTest()
+{
+    Track track=new Track(57,"DeleteTrack","Deleted");
+    trackRepository.delete(track);
+    boolean result=trackRepository.existsById(57);
+    Assert.assertEquals(false,result);
+
+}
 
     @RunWith(SpringRunner.class)
     @SpringBootTest

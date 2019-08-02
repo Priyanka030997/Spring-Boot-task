@@ -1,6 +1,7 @@
 package com.stackroute.userservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.stackroute.controller.TrackController;
 import com.stackroute.exception.TrackAlreadyExistException;
 import com.stackroute.userservice.domain.Track;
 import com.stackroute.userservice.service.TrackService;
@@ -24,6 +25,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.graalvm.compiler.graph.Graph.SourcePositionTracking.Track;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -87,6 +89,25 @@ public class TrackControllerTest {
 
 
     }
+
+@Test
+ public void updateTracks() throws Exception {
+     when(trackService.updateTrack(track)).thenReturn(track);
+     mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/track")
+             .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+             .andExpect(MockMvcResultMatchers.status().isCreated())
+             .andDo(MockMvcResultHandlers.print());
+ }
+
+@Test
+ public void deleteTracks() throws Exception {
+     when(trackService.deleteTrack(anyInt())).thenReturn(true);
+     mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/track/{id}","1")
+             .contentType(MediaType.APPLICATION_JSON).content(asJsonString(null)))
+             .andExpect(MockMvcResultMatchers.status().isOk())
+             .andDo(MockMvcResultHandlers.print());
+ }
+
 
 //converting a JSON String to a Java object using the ObjectMapper class
     private static String asJsonString(final Object obj)

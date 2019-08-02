@@ -1,5 +1,6 @@
 package com.stackroute.userservice.repository;
 
+import com.stackroute.repository.TrackRepository;
 import com.stackroute.userservice.domain.Track;
 import org.junit.After;
 import org.junit.Assert;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static org.graalvm.compiler.graph.Graph.SourcePositionTracking.Track;
 import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -66,5 +68,26 @@ public class TrackRepositoryTest {
         List<Track> list = trackRepository.findAll();
         Assert.assertEquals("wjqenw",list.get(0).getName());
     }
+@Test
+public void updateTrackTest()
+{
+  Track track=new Track(106,"Update","UpdatingTracks");
+  trackRepository.save(track);
+  trackRepository.findById(track.getId()).get().setName("UpdatedTrackInName");
+  List<Track> list=trackRepository.findAll();
+  Assert.assertEquals("UpdatedTrackInName",list.get(0).getName());
+}
+
+@Test
+public void deleteTrackTest()
+{
+    Track track=new Track(107,"Delete","DeleteTrack");
+    trackRepository.save(track);
+    trackRepository.deleteById(107);
+    boolean result=trackRepository.existsById(107);
+    Assert.assertEquals(false,result);
+
+}
+
 }
 
