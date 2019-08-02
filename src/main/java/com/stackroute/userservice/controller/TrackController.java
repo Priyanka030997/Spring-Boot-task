@@ -38,7 +38,7 @@ public class TrackController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
 
-
+//handler method for save all the tracks
      @PostMapping(value="/save")
     public ResponseEntity<?> saveTrack(@RequestBody Track track)
     {
@@ -54,13 +54,14 @@ public class TrackController {
         }
         return responseEntity;
     }
+    //handler method for get all the tracks
     @ApiOperation(value = "Get all the tracks")
     @GetMapping(value="/track")
     public ResponseEntity<?> getAllTracks()
     {
       return new ResponseEntity<List<Track>>(trackService.getAllTracks(),HttpStatus.OK);
     }
-
+    //handler method for update the track
     @ApiOperation(value = "Update track")
     @PostMapping(value="/update")
     public ResponseEntity<?> updateTrack(@RequestBody Track track)
@@ -77,6 +78,7 @@ public class TrackController {
         }
         return responseEntity;
     }
+    //handler method for delete the track by given Id
     @ApiOperation(value = "Delete track")
     @DeleteMapping(value="/delete/{id}")
     public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id)
@@ -109,9 +111,18 @@ public class TrackController {
         }
         return responseEntity;
     }
-    @GetMapping("/alltrack")
+   /* @GetMapping("/alltrack")
     public ResponseEntity<?> getUrlData() throws Exception
     {
         return new ResponseEntity<String>(trackService.getUrlData(),HttpStatus.OK);
+    }*/
+    @GetMapping("track/{id}")
+    //handler to get a track by id
+    public ResponseEntity<?> getTrack(@PathVariable String id) {
+        try {
+            return new ResponseEntity<>(trackService.trackById(Integer.parseInt(id)), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 }

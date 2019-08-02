@@ -19,6 +19,6 @@ public interface TrackService {
     public void deleteTrackById(int id);
 
     public List<Track> trackByName(String name);
-
-    public String getUrlData() throws Exception;
+    public Track trackById(int id) throws TrackNotFoundException;
+    public void getUrlData() throws Exception;
 }
