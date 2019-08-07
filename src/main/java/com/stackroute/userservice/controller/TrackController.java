@@ -38,14 +38,11 @@ public class TrackController {
     public ResponseEntity<?> saveTrack(@RequestBody Track track)
     {
         ResponseEntity responseEntity;
-        try
-        {
-            trackService.saveTrack(track);
-            responseEntity=new ResponseEntity<String>("sucessfully created", HttpStatus.CREATED);
-        }
-        catch (Exception ex)
-        {
-            responseEntity=new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
+        try{
+      // calls saveTrack() from service
+            responseEntity = new ResponseEntity<Track>(trackService.saveTrack(track), HttpStatus.CREATED);
+        } catch (Exception e){
+            responseEntity = new ResponseEntity<String>("Exception", HttpStatus.CONFLICT);
         }
         return responseEntity;
     }
@@ -61,17 +58,15 @@ public class TrackController {
     public ResponseEntity<?> updateTrack(@RequestBody Track track)
     {
         ResponseEntity responseEntity;
-        try
-        {
-            trackService.updateTrack(track);
-            responseEntity=new ResponseEntity<String>("sucessfully updated", HttpStatus.CREATED);
-        }
-        catch (Exception ex)
-        {
-            responseEntity=new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
+        try{
+     //	calls updateTrack() from service
+            responseEntity = new ResponseEntity<Track>(trackService.updateTrack(id,track), HttpStatus.OK);
+        } catch (Exception e){
+            responseEntity = new ResponseEntity<String>("Exception", HttpStatus.CONFLICT);
         }
         return responseEntity;
     }
+    
     @ApiOperation(value = "Delete track")
     @DeleteMapping(value="/delete/{id}")
     public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id)
@@ -79,8 +74,7 @@ public class TrackController {
         ResponseEntity responseEntity;
         try
         {
-        trackService.deleteTrackById(id);
-        responseEntity=new ResponseEntity<String>("sucessfully deleted", HttpStatus.CREATED);
+        responseEntity=new ResponseEntity<Track>(trackService.deleteTrackById(id), HttpStatus.CREATED);
     }
         catch(Exception ex)
         {
