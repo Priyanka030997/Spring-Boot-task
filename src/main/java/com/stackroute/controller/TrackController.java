@@ -29,8 +29,8 @@ public class TrackController {
     public ResponseEntity<?> saveTrack(@RequestBody Track track) {
         ResponseEntity responseEntity;
         try {
-            trackService.saveTrack(track);
-            responseEntity = new ResponseEntity<String>("sucessfully created", HttpStatus.CREATED);
+           // calls saveTrack() from service
+            responseEntity = new ResponseEntity<Track>(trackService.saveTrack(track), HttpStatus.CREATED);
         } catch (TrackAlreadyExistException ex) {
             //responseEntity = errorController.exception1();
             responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
@@ -46,11 +46,11 @@ public class TrackController {
 
     //handler method for update the track
     @PostMapping(value = "/update")
-    public ResponseEntity<?> updateTrack(@RequestBody Track track) {
+    public ResponseEntity<?> updateTrack(@PathVariable int id,@RequestBody Track track) {
         ResponseEntity responseEntity;
         try {
-            trackService.updateTrack(track);
-            responseEntity = new ResponseEntity<String>("sucessfully updated", HttpStatus.CREATED);
+           // calls updateTrack() from service
+            responseEntity = new ResponseEntity<Track>(trackService.updateTrack(id,track), HttpStatus
         } catch (TrackNotFoundException ex) {
             responseEntity = errorController.exception2();
         }
@@ -62,8 +62,7 @@ public class TrackController {
     public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) {
         ResponseEntity responseEntity;
         try {
-            trackService.deleteTrackById(id);
-            responseEntity = new ResponseEntity<String>("sucessfully deleted", HttpStatus.CREATED);
+            responseEntity=new ResponseEntity<Track>(trackService.deleteTrackById(id), HttpStatus.CREATED);
         } catch (Exception ex) {
             responseEntity = new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
         }
