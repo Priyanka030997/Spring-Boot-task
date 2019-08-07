@@ -15,7 +15,7 @@ public interface TrackService {
 
      Track updateTrack(int id,Track track) throws TrackNotFoundException;
 
-     void deleteTrackById(int id);
+     Track deleteTrackById(int id);
 
      List<Track> trackByName(String name);
 
