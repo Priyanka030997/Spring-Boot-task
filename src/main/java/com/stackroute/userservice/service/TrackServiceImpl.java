@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrackServiceImpl implements TrackService {
@@ -14,37 +15,43 @@ public class TrackServiceImpl implements TrackService {
     @Autowired
     public TrackServiceImpl(TrackRepository trackRepository)
     {
+
         this.trackRepository = trackRepository;
     }
 
   //override the save method from TrackService class and this method save all the tracks
     @Override
-    public void saveTrack(Track track) {
-         trackRepository.save(track);
+    public Track saveTrack(Track track) {
+        return trackRepository.save(track);
 
     }
 
     //override the getAllTracks method from TrackService class and this method get all the tracks
     @Override
     public List<Track> getAllTracks() {
+
         return trackRepository.findAll();
     }
-//    @Override
-//    public Track addNewTrack(Track track)
-//    {
-//        return trackRepository.save(track);
-//    }
-//override the Update method from TrackService class and this method update the tracks
-    @Override
-    public Track updateTrack(Track track)
-    {
-        return trackRepository.save(track);
-    }
 
+    //override the Update method from TrackService class and this method update the tracks
+    @Override
+    public Track updateTrack(int id,Track track) {
+        if (trackRepository.existsById(id) == true) {
+            return trackRepository.save(track);
+        } else {
+            return null;
+        }
+    }
     //override the delete method from TrackService class and this method delete the track by given id
      @Override
-     public void deleteTrackById(int id)
+     public Track deleteTrackById(int id)
       {
-        trackRepository.deleteById(id);
+          Optional<Track> track =null;
+          if(trackRepository.existsById(id) == true)
+          {
+              trackRepository.deleteById(id);
+              track= trackRepository.findById(id);
+          }
+          return track.get();
        }
 }
