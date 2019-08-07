@@ -37,7 +37,7 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
-    public void saveTrack(Track track) throws TrackAlreadyExistsException {
+    public Track saveTrack(Track track) throws TrackAlreadyExistsException {
         if (trackRepository.existsById(track.getId())) {
             throw new TrackAlreadyExistsException();
         }
@@ -60,7 +60,7 @@ public class TrackServiceImpl implements TrackService {
 //        return trackRepository.save(track);
 //    }
     @Override
-    public Track updateTrack(Track track) throws TrackNotFoundException {
+    public Track updateTrack(int id,Track track) throws TrackNotFoundException {
         if (trackRepository.existsById(track.getId())) {
             Track track1 = trackRepository.findById(track.getId()).get();
             track1.setComment(track.getComment());
@@ -74,7 +74,7 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
-    public void deleteTrackById(int id) {
+    public Track deleteTrackById(int id) {
 
         trackRepository.deleteById(id);
     }
