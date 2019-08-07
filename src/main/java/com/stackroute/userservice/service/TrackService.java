@@ -8,17 +8,17 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface TrackService {
-    public void saveTrack(Track track) throws TrackAlreadyExistsException;
+    void saveTrack(Track track) throws TrackAlreadyExistsException;
 
-    public List<Track> getAllTracks();
+    List<Track> getAllTracks();
 
     //public Track addNewTrack(Track track);
 
-    public Track updateTrack(Track track) throws TrackNotFoundException;
+     Track updateTrack(int id,Track track) throws TrackNotFoundException;
 
-    public void deleteTrackById(int id);
+    Track void deleteTrackById(int id);
 
-    public List<Track> trackByName(String name);
-    public Track trackById(int id) throws TrackNotFoundException;
-    public void getUrlData() throws Exception;
+     List<Track> trackByName(String name);
+     Track trackById(int id) throws TrackNotFoundException;
+     void getUrlData() throws Exception;
 }
